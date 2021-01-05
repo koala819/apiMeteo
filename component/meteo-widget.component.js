@@ -15,6 +15,10 @@ class MeteoWidgetElement extends HTMLElement {
                 img {
                     margin-right: 20px;
                 }
+                .meteo-widget.dark {
+                    background-color: black;
+                    color: white;
+                }
             </style>
             <div class="meteo-widget">
                 <img src ="">
@@ -51,10 +55,17 @@ class MeteoWidgetElement extends HTMLElement {
         this._units = this.getAttribute('units') || 'metric'
         this._lang = this.getAttribute('lang') || 'fr'
 
+        this._dark = this.getAttribute('dark') !== null
+
         this.fetchAPIData();
     }
 
     render () {
+        if (this._dark) {
+            this.shadowRoot.querySelector('div.meteo-widget').classList.add('dark')
+        }
+
+
         this.shadowRoot.querySelector('img').src =
         `http://openweathermap.org/img/wn/${this._icon}.png`
         
