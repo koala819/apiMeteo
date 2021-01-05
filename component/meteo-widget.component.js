@@ -5,13 +5,32 @@ class MeteoWidgetElement extends HTMLElement {
         this.attachShadow({mode: 'open'})
 
         this.shadowRoot.innerHTML = `
-            <img src ="">
-            <h2>Paris</h2>
-            <h3>
-                <span id="temperature">25°C</span>
-                (<span id="description">Nuageux</span>)
-            </h3>
+            <style>
+                .meteo-widget {
+                    display: flex;
+                    justify-content:flex-start;
+                    align-items: center;
+                }
+
+                img {
+                    margin-right: 20px;
+                }
+            </style>
+            <div class="meteo-widget">
+                <img src ="">
+                <div class="infos">
+                    <h2>Paris</h2>
+                    <h3>
+                        <span id="temperature">25°C</span>
+                        (<span id="description">Nuageux</span>)
+                    </h3>
+                </div>
+            </div>
         `
+    }
+
+    capitalize(str) {
+        return str.split(' ').map(mot => mot[0].toUpperCase() + mot.slice(1)).join(' ')
     }
 
     fetchAPIData() {
@@ -44,8 +63,8 @@ class MeteoWidgetElement extends HTMLElement {
         this.shadowRoot.querySelector('h3 #temperature').textContent = 
         this._temperature + (this._units == 'metric' ? ' °C' : '°F')
         
-        this.shadowRoot.querySelector('h3 #description').textContent = `
-            ${this._description}`
+        this.shadowRoot.querySelector('h3 #description').textContent = 
+        this.capitalize(this._description)
     }
 }
 
