@@ -19,7 +19,9 @@ class MeteoWidgetElement extends HTMLElement {
     }
 
     connectedCallback() {
-
+        this._city = this.getAttribute('city') || 'Paris'
+        this._units = this.getAttribute('units') || 'metric'
+        this._lang = this.getAttribute('lang') || 'fr'
     }
 
     render () {
